@@ -1,0 +1,23 @@
+.spinner-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  .spinner {
+    border: 5px solid rgb(180, 180, 180);
+    border-radius: 50%;
+    border-top-color: #005289;
+    animation: rotate 1s linear infinite;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
