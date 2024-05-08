@@ -1,0 +1,33 @@
+.login-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 75%;
+  filter: drop-shadow(0 0 0.75rem rgba(137, 149, 171, 0.5));
+  input {
+    border: 2px solid rgb(77, 80, 86);
+    min-width: 30%;
+    border-radius: 20px;
+    padding: 5px 20px;
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
+  }
+  button {
+    background-color: rgba(66, 184, 78, 0.627);
+    border: none;
+    filter: drop-shadow(0 0 0.75rem rgba(137, 149, 171, 0.5));
+    margin-top: 26px;
+    transition: all ease .3s;
+    &:hover {
+      background-color: rgb(66, 184, 78);
+    }
+  }
+}
+.logo-container {
+  #login-logo {
+    width: 175px;
+  }
+}

@@ -1,7 +1,8 @@
 import { useEffect, useReducer } from "react";
 import firebase from "../../../firebase";
-import { ref, set, getDatabase, onValue, update } from "firebase/database";
+import { ref, set, getDatabase, onValue, query, orderByChild, equalTo, push } from "firebase/database";
 import { reducer } from "../../reducers/issueReducer";
+import { formatDate } from "../../utils/dateUtils";
 
 const db = getDatabase(firebase);
 
@@ -11,14 +12,15 @@ const initialState = {
   error: '',
 }
 
-const useFetch = (reference) => {
+const useFetch = (reference, uid = '') => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const formatData = (ss) => ({ ...ss.val(), id: ss.key });
 
   const fetchData = () => {
     try {
-      onValue(ref(db, `${reference}/`), (ss) => {
+      const qry = query(ref(db, `${reference}/`), orderByChild('owner/id'), equalTo(uid))
+      onValue(qry, (ss) => {
         const newData = [];
         ss.forEach((item) => {
           newData.push(formatData(item));
@@ -40,9 +42,23 @@ const useFetch = (reference) => {
     }
   };
 
-  const addIssue = () => {
+  const add = async (user, issueData) => {
     try {
-      set(ref(db, `issues/`), issues);
+      const date = new Date()
+      const owner = {
+        id: user?.uid,
+        name: user?.name
+      }
+  
+      const data = {
+        issueTitle: issueData.issueTitle,
+        medicalEquipmentName: issueData.medicalEquipmentName,
+        reportDate: formatDate(date),
+        status: 'open',
+        owner
+      }
+      const pushNewIssue = push(ref(db, `${reference}`))
+      await set(pushNewIssue, data);
     } catch (error) {
       console.error(error);
     }
@@ -60,7 +76,7 @@ const useFetch = (reference) => {
     fetchData();
   }, []);
 
-  return { state, get, addIssue, edit };
+  return { state, get, edit, add };
 };
 
 export default useFetch;
