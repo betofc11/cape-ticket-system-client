@@ -1,0 +1,79 @@
+.card {
+  transition: all 0.2s ease;
+  color: #ffffff;
+  padding-bottom: 1rem;
+  
+}
+.card-container {
+  filter: drop-shadow(0 0 1rem #1b262dd0);
+  border: 3px solid #001e32;
+  background-color: #082f49b1;
+  border-radius: 20px;
+  overflow: hidden;
+  &:hover {
+    cursor: pointer;
+    filter: drop-shadow(0 0 0.5rem #000000d0);
+  }
+  &.open {
+    background-color: #3a4908b1;
+    border-color: #1c3200;
+    .state-section {
+      background-color: #293505;
+
+    }
+  }
+  &.inProgress {
+    border-color: #001e32;
+    background-color: #082f49b1;
+    .state-section {
+      background-color: #052033;
+
+    }
+  }
+  &.done {
+    background-color: #084921b1;
+    border-color: #003218;
+    .state-section {
+      background-color: #032c13b1;
+
+    }
+  }
+  .state-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2rem 1rem 2rem;
+  }
+}
+
+.state-icon {
+  width: fit-content;
+  height: fit-content;
+  &.rotate-icon {
+    animation: rotate 6s linear infinite; 
+  }
+  &.blink-icon {
+    animation: blink 4s linear infinite;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes blink {
+  0% {
+    color: rgb(196, 116, 116);
+  }
+  50% {
+    color: white; 
+  }
+  100% {
+    color: rgb(196, 116, 116);
+  }
+}
